@@ -1,0 +1,14 @@
+<!-- Template inheritance Jinja -->
+{% extends "layout.html" %}
+
+{% block content %}
+<h2>This is indeed the Home page</h2>
+<ul>
+    <li>First</li>
+    <li><a href="{{ url_for('about')}}" target="_blank">About</a></li>
+    <li><a href="{{ url_for('employees')}}" target="_blank">Employees</a></li>
+    <li><a href="{{ url_for('managers')}}" target="_blank">Managers</a></li>
+    <li>Fifth</li>
+</ul>
+<h3>This is the ending of Home block</h3>
+{% endblock content %}
