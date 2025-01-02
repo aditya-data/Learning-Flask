@@ -1,8 +1,10 @@
 import time
-from flask import Flask, redirect, url_for, render_template
+from flask import Flask, redirect, url_for, render_template, flash
 from employees import emp_data
+from forms import LoginForm, SignupForm
 
 app = Flask(__name__)
+app.config["SECRET_KEY"] = "1234Key"
 
 # home page endpoint
 @app.route("/")
@@ -66,6 +68,29 @@ def managers():
     return render_template("managers.html", title="Managers Data", empinfo=emp_data)
 
 
+# write pythonic code for user forms using wtforms
+@app.route("/signup", methods=["GET", "POST"])
+def signup():
+    signup = SignupForm()
+    if signup.validate_on_submit():
+        flash(f"Congratulations {signup.username.data} got registered with us!")
+        return redirect(url_for("home"))
+    return render_template("signup.html", title="Signup", form=signup)
+
+
+@app.route("/login",  methods=["GET", "POST"])
+def login():
+    login = LoginForm()
+    email = login.email.data
+    pw = login.password.data
+    if login.validate_on_submit():
+        if email == "a@b.com" and pw == "12345": # email and pw validation
+            flash(f"User got logged in. ")
+            return redirect(url_for("home"))
+        else:
+            flash("Incorrect Email or password ")
+
+    return render_template("login.html", title="Login", form=login)
 
 
 

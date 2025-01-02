@@ -8,6 +8,14 @@
 <body>
     <h1>Welcome to our {{ title }} page. </h1>
     <!-- Add content beyond this -->
+    {% with messages=get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <div> {{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
     {% block content %}
     {% endblock content %}
 </body>
